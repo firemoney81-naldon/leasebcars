@@ -1,23 +1,603 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Structured Data for Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "신차렌트카 대여 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "신차렌트 전문 비교 업체",
+        "url": "https://yourdomain.com"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "대한민국"
+      },
+      "description": "2026년 최신 신차 장기렌트카 상품의 가격 비교, 견적 안내 및 고객 맞춤형 컨설팅 서비스를 제공합니다.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "주요 신차렌트카 상품",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "소형/준중형 신차렌트"
+            },
+            "description": "사회 초년생이나 경제적인 차량을 찾는 분들께 적합한 상품입니다. 월 평균 비용이 저렴하며, 초기 비용 부담이 적습니다."
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "중형/대형 신차렌트"
+            },
+            "description": "패밀리카나 비즈니스 용도에 적합한 상품입니다. 넓은 실내 공간과 편의 사양을 갖춘 모델을 추천해 드립니다."
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "SUV/전기차 신차렌트"
+            },
+            "description": "레저 활동이나 최신 친환경 차량을 원하는 고객에게 적합한 상품입니다. 정부 보조금 혜택을 포함한 견적을 제공합니다."
+          }
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #f8f9fa; /* Light background */
+            color: #333;
+            font-size: 16px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 2px solid #e9ecef;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0.5rem 0 0;
+        }
+
+        nav a {
+            color: #007bff; /* Primary link color */
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #f0f8ff; /* Light hover effect */
+            color: #0056b3;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: #0056b3;
+            font-size: 1.8rem;
+            border-left: 5px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        h3 {
+            color: #007bff;
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            color: #555;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e9ecef;
+            color: #495057;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #28a745; /* Green color for CTA */
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 1.5rem 0;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .cta-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .cta-button-secondary {
+            display: inline-block;
+            background-color: #007bff; /* Secondary CTA color (blue) */
+            color: white;
+            font-weight: 700;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 0.5rem 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button-secondary:hover {
+            background-color: #0056b3;
+        }
+
+        .keyword-tags {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .keyword-tags a {
+            background-color: #e0f0ff;
+            color: #007bff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .keyword-tags a:hover {
+            background-color: #cce0ff;
+        }
+
+        /* FAQ Accordion Styling */
+        dl dt {
+            font-weight: 700;
+            margin-top: 1rem;
+            cursor: pointer;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+        
+        dl dt:hover {
+            background-color: #e9ecef;
+        }
+
+        dl dd {
+            margin-left: 0;
+            padding: 1rem 1.5rem;
+            border-left: 1px solid #dee2e6;
+            border-right: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 0 0 8px 8px;
+            background-color: #fff;
+            margin-bottom: 0.5rem;
+            display: none;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        
+        dl dt.active + dd {
+            display: block;
+        }
+        
+        /* Form Styling */
+        .inquiry-form {
+            background-color: #f0f8ff; /* Light blue background for form */
+            padding: 2.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        
+        .inquiry-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #0056b3;
+        }
+        
+        .inquiry-form input[type="text"],
+        .inquiry-form input[type="tel"],
+        .inquiry-form input[type="email"],
+        .inquiry-form select,
+        .inquiry-form textarea {
+            width: calc(100% - 2rem);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: content-box;
+        }
+        
+        .inquiry-form textarea {
+            resize: vertical;
+        }
+        
+        .inquiry-form .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .inquiry-form button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .inquiry-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Image Section */
+        .image-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+            color: #777;
+            background-color: #f0f0f0;
+            border-top: 1px solid #e9ecef;
+            margin-top: 2rem;
+        }
+        
+        /* Naver SEO specific elements */
+        .hidden-keywords {
+            visibility: hidden; /* Naver often prefers text to be present but not necessarily visible */
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>2026년 신차렌트카 가격 비교 및 비용 견적 전문 업체</h1>
+        <nav aria-label="메인 메뉴">
+            <ul>
+                <li><a href="#introduction">서비스 소개</a></li>
+                <li><a href="#cost_analysis">가격 및 견적</a></li>
+                <li><a href="#comparison">장단점 비교</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#inquiry">실시간 상담</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: Introduction -->
+        <section id="introduction">
+            <h2>신차렌트카, 2026년의 새로운 자동차 이용 트렌드</h2>
+            <p>2026년 현재, 신차를 소유하는 것보다 합리적으로 '이용'하는 개념이 보편화되고 있습니다. 특히, 신차 장기렌트카 서비스는 초기 비용 부담을 최소화하면서도 신차를 이용하고 싶은 고객들에게 가장 인기 있는 선택지로 자리 잡았습니다. 저희는 수많은 <strong>신차렌트 업체</strong> 중 고객님에게 가장 적합하고 저렴한 <strong>신차렌트 비용</strong>과 <strong>가격</strong>을 제시해 드리는 전문 비교 플랫폼입니다. 단순히 <strong>신차렌트 견적</strong>을 비교하는 것을 넘어, 고객의 운전 습관, 주행 거리, 선호 차종을 종합적으로 분석하여 최적의 <strong>신차렌트카 추천</strong>을 제공합니다.</p>
+            <p><strong>신차렌트</strong>를 고민하는 분들이 가장 궁금해하는 부분은 <strong>평균 금액</strong>과 <strong>할인 혜택</strong>입니다. <strong>신차 장기렌트</strong>는 초기 구입 비용이 0원부터 시작할 수 있어 목돈 부담이 없다는 것이 큰 장점입니다. 또한, 취득세, 등록세, 자동차 보험료, 자동차세 등 복잡한 세금 및 유지 비용이 모두 월 <strong>렌탈료</strong>에 포함되어 있어 관리가 편리합니다. <strong>신차렌트카 전문</strong> 컨설턴트와의 1:1 상담을 통해 고객님은 <strong>내돈내산</strong>과 같은 소유 형태의 <strong>장단점</strong>을 명확히 비교하고, 합리적인 결정을 내릴 수 있습니다.</p>
+
+            <div class="keyword-tags" aria-label="연관 키워드">
+                <a href="#cost_analysis">신차렌트카 가격</a>
+                <a href="#comparison">신차렌트 장점</a>
+                <a href="#cost_analysis">신차렌트 비용</a>
+                <a href="#inquiry">신차렌트 견적</a>
+                <a href="#cost_analysis">신차렌트 싼곳</a>
+                <a href="#comparison">신차렌트 단점</a>
+                <a href="#recommendation">신차렌트 추천</a>
+                <a href="#service_detail">신차렌트 업체 순위</a>
+                <a href="#service_detail">신규 가입 혜택</a>
+            </div>
+        </section>
+
+        <!-- Image Section -->
+        <div class="image-container">
+            <!-- Pexels Image Description: A diverse lineup of new cars (sedan, SUV, electric) arranged neatly, suggesting choice and professionalism in car rental services. A clean, modern environment. Source: Pexels.com -->
+            <img src="https://images.pexels.com/photos/5688585/pexels-photo-5688585.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="다양한 신차 렌트카 모델이 주차된 모습" loading="lazy">
+        </div>
+
+        <!-- Section 2: Cost Analysis -->
+        <section id="cost_analysis">
+            <h2>신차렌트카 비용 분석: 2026년 최신 가격표 및 예상 견적</h2>
+            <p><strong>신차렌트 비용</strong>은 차량 모델, 옵션, 계약 기간, 주행 거리에 따라 크게 달라집니다. <strong>평균적인 신차렌트 금액</strong>을 알아보기 위해, 2026년 현재 가장 인기 있는 차량 모델들을 기준으로 <strong>신차렌트 가격</strong>을 비교해 보았습니다. 특히, <strong>신규 가입 혜택</strong>이나 프로모션 기간을 활용하면 월 <strong>렌탈료 할인</strong>을 받을 수 있어 <strong>저렴한 곳</strong>을 찾는 것이 중요합니다.</p>
+
+            <h3>1. 신차렌트 vs. 할부 구매: 비용 차이 비교</h3>
+            <p>많은 고객들이 <strong>신차렌트</strong>를 선택하는 가장 큰 이유는 <strong>초기 비용</strong> 절감입니다. 할부 구매 시에는 차량 가격의 일부를 선납하거나 할부 이자를 부담해야 하지만, 렌트는 보증금 없이도 이용 가능한 상품이 많습니다. 아래 표는 신차렌트와 구매 시 발생하는 주요 비용 항목을 비교한 것입니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>신차 장기렌트</th>
+                        <th>할부 구매 (내돈내산)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>초기 비용</strong></td>
+                        <td>보증금 0원 가능, 인수 선택 가능</td>
+                        <td>취득세(7%), 등록세, 보험료, 선수금 필요</td>
+                    </tr>
+                    <tr>
+                        <td><strong>월 납입금 구성</strong></td>
+                        <td>차량가 + 보험료 + 세금 + 정비료 (포함)</td>
+                        <td>원금 + 할부 이자 (별도)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>세금 혜택</strong></td>
+                        <td>개인 사업자/법인: 비용 처리 100% 가능</td>
+                        <td>감가상각 비용 처리 제한 (법인차 한정)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>재산 가치</strong></td>
+                        <td>자산으로 미포함 (건강보험료 및 재산세 증가 없음)</td>
+                        <td>자산으로 등록 (재산세, 건보료 인상 요인)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>차량 관리</strong></td>
+                        <td>전문 업체 정비 서비스(상품에 따라)</td>
+                        <td>개인 직접 관리, 정비 비용 부담</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2. 신차렌트 견적을 낮추는 방법: 할인 및 이벤트 활용</h3>
+            <p><strong>신차렌트 비용</strong>을 절감하기 위한 핵심은 <strong>신차렌트 싼곳</strong>을 찾는 것입니다. 단순히 월 <strong>가격</strong>만 비교할 것이 아니라, <strong>업체</strong>별로 제공하는 <strong>할인 혜택</strong>과 <strong>사은품</strong>, <strong>현금지원</strong> 여부를 확인해야 합니다. <strong>신차렌트 전문</strong> 업체들은 월별 또는 분기별로 특정 모델에 대한 <strong>이벤트</strong>를 진행하여 <strong>평균 금액</strong>보다 훨씬 저렴하게 렌트할 기회를 제공합니다.</p>
+            <ul>
+                <li><strong>장기렌트 비교 업체 활용:</strong> 한 곳의 <strong>업체</strong>에서만 <strong>견적</strong>을 받지 말고, 여러 <strong>렌트카 업체</strong>의 <strong>가입</strong> 조건을 비교하는 것이 필수입니다. <strong>네이버</strong>, <strong>구글</strong> 등 검색 엔진에서 '<strong>신차렌트카 순위 비교</strong>'를 통해 다양한 정보를 얻을 수 있습니다.</li>
+                <li><strong>계약 기간 조정:</strong> 일반적으로 계약 기간이 길어질수록 월 렌탈료는 낮아집니다. 48개월 또는 60개월 계약이 36개월보다 <strong>평균 비용</strong>이 저렴한 편입니다.</li>
+                <li><strong>주행 거리 옵션 선택:</strong> 자신의 주행량에 맞게 연간 주행 거리를 설정하면 불필요한 비용을 줄일 수 있습니다.</li>
+            </ul>
+        </section>
+
+        <!-- Section 3: Pros and Cons -->
+        <section id="comparison">
+            <h2>신차 장기렌트의 장점과 단점: 신중한 선택을 위한 분석</h2>
+            <p><strong>신차렌트</strong>가 대중화되면서 많은 사람들이 그 <strong>장점</strong>에 주목하지만, 개인의 상황에 따라 <strong>단점</strong>이 될 수 있는 부분도 명확하게 인지해야 합니다. <strong>신차 장기렌트</strong>는 소유의 개념이 아닌 '임차'이기 때문에 발생하는 특징들입니다. <strong>장단점</strong>을 명확히 이해하고 <strong>신차렌트</strong>를 선택해야 나중에 후회하지 않습니다.</p>
+
+            <h3>1. 신차렌트의 주요 장점 (Pros)</h3>
+            <ul>
+                <li><strong>초기 비용 부담 제로:</strong> 차량 구입 시 목돈이 들어가지 않아 초기 비용을 최소화할 수 있습니다. <strong>신규 가입</strong> 고객에게는 파격적인 <strong>할인</strong> 및 <strong>지원금</strong> <strong>혜택</strong>이 제공되기도 합니다.</li>
+                <li><strong>보험료 및 세금 부담 없음:</strong> 렌트카의 보험료는 렌트 업체가 부담합니다. 보험 경력이 단절되지 않고 유지될 수 있으며, 사고 발생 시에도 보험료 할증 걱정이 없습니다.</li>
+                <li><strong>간편한 차량 관리:</strong> 정비 포함 상품을 선택하면 엔진 오일 교환, 소모품 교체 등을 <strong>전문 업체</strong>에서 대행해 주어 편리합니다.</li>
+                <li><strong>신용 등급 영향 최소화:</strong> <strong>신차렌트 가입</strong>은 할부와 달리 대출로 잡히지 않아 신용 등급 하락에 영향을 미치지 않습니다.</li>
+            </ul>
+
+            <h3>2. 신차렌트의 단점 (Cons) 및 고려 사항</h3>
+            <ul>
+                <li><strong>운전 경력 단절:</strong> 렌트카는 업체 명의로 보험에 가입되므로 개인의 무사고 운전 경력이 인정되지 않습니다. 향후 개인 차량을 구매하여 보험 가입 시 보험료가 비싸질 수 있습니다.</li>
+                <li><strong>주행 거리 제한:</strong> 계약 시 정한 연간 주행 거리를 초과하면 추가 비용을 지불해야 합니다. <strong>장단점</strong> 중 가장 중요한 고려 사항입니다.</li>
+                <li><strong>차량 번호판:</strong> 렌트카는 '하', '호' 번호판을 사용합니다. 최근에는 일반 번호판과 동일한 디자인으로 변경되어 거부감이 줄었으나, 여전히 '하', '호'를 꺼리는 소비자도 존재합니다.</li>
+            </ul>
+
+            <h3>3. 신차렌트 vs. 리스 vs. 할부: 차이점 비교</h3>
+            <p><strong>신차렌트</strong>는 리스와 헷갈리기 쉽습니다. <strong>신차렌트</strong>와 리스의 <strong>차이점</strong>은 차량 명의, 번호판, 보험 처리 방식에 있습니다. 리스는 금융 상품으로 차량 명의가 리스사로 되어 있지만 보험은 개인 명의로 가입해야 하므로 운전 경력을 유지할 수 있습니다. 그러나 신용 등급에 영향을 미치고 대출로 인식될 수 있습니다. <strong>신차렌트</strong>는 소유 개념이 전혀 없는 순수한 렌탈 서비스입니다.</p>
+        </section>
+
+        <!-- Section 4: Vehicle Recommendation and Trends -->
+        <section id="recommendation">
+            <h2>2026년 신차렌트 추천 차량 순위 및 동향 분석</h2>
+            <p>2026년에는 친환경차와 SUV의 인기가 더욱 높아질 것으로 예상됩니다. <strong>신차렌트 업체</strong>들은 이러한 트렌드를 반영하여 다양한 전기차(EV) 및 하이브리드(HEV) 모델을 <strong>신차렌트 상품</strong>으로 선보이고 있습니다. <strong>내돈내산 후기</strong>나 <strong>유튜브</strong>, <strong>네이버 블로그</strong>에서 <strong>신차렌트 추천</strong> 정보를 찾아볼 때, 단순히 인기 <strong>순위</strong>만 볼 것이 아니라 자신에게 맞는 모델을 선택해야 합니다.</p>
+
+            <h3>1. 2026년 인기 신차렌트 추천 모델 (가이드)</h3>
+            <p><strong>신차렌트</strong>를 통해 이용 가능한 차량은 종류가 매우 다양합니다. 저희는 고객의 라이프스타일에 따라 다음과 같은 모델들을 <strong>추천</strong>합니다.</p>
+            <ul>
+                <li><strong>준중형 세단:</strong> 사회 초년생이나 출퇴근용으로 <strong>저렴한 곳</strong>을 찾는 분들에게 적합합니다. <strong>신차렌트 비용</strong>이 가장 합리적이며, 연비 효율성이 뛰어납니다.</li>
+                <li><strong>중형 SUV:</strong> 패밀리카로 가장 선호되는 모델입니다. 넓은 공간과 안전성이 강점이며, 최근에는 하이브리드 모델이 <strong>추천</strong> <strong>순위</strong> 상위에 있습니다.</li>
+                <li><strong>전기차 (EV):</strong> <strong>신규 가입</strong> 고객에게 <strong>지원금 혜택</strong>이나 <strong>상품권</strong> <strong>이벤트</strong>를 통해 <strong>신차렌트 가격</strong>을 낮춰주는 경우가 많습니다. 주행 거리가 긴 분들께 <strong>추천</strong>합니다.</li>
+            </ul>
+
+            <h3>2. 신차렌트 후기: 실제 이용자들의 평가</h3>
+            <p><strong>내돈내산 후기</strong>를 통해 실제 고객들의 경험을 확인하는 것도 중요합니다. 많은 <strong>후기</strong>에서 <strong>신차렌트</strong>의 편리함과 <strong>비용</strong> 효율성에 대해 긍정적으로 평가하고 있습니다. 특히 <strong>신차렌트 전문</strong> <strong>업체</strong>의 서비스 품질에 대한 평가가 중요하므로, <strong>인스타그램</strong>이나 <strong>트위터</strong> 등 소셜 미디어에서도 정보를 수집해 보세요.</p>
+        </section>
+
+        <!-- Section 5: External Links & Credibility -->
+        <section id="service_detail">
+            <h2>신뢰성 있는 신차렌트 정보를 위한 외부 참고 자료</h2>
+            <p><strong>신차렌트</strong>는 신중하게 선택해야 하는 서비스입니다. 저희는 투명한 정보를 제공하기 위해 공신력 있는 외부 기관의 자료를 인용합니다. 아래 링크를 통해 <strong>신차렌트</strong> 관련 법규, 차량 정보, 소비자 보호원 자료 등을 확인하실 수 있습니다.</p>
+            <ul>
+                <li><strong>자동차관리법 (국토교통부):</strong> <a href="https://www.law.go.kr/법령/자동차관리법" target="_blank">대한민국 국토교통부 법령정보센터</a> - 신차 등록 및 관리 규정 확인.</li>
+                <li><strong>한국소비자원:</strong> <a href="https://www.kca.go.kr" target="_blank">한국소비자원 소비자 분쟁 해결 기준</a> - 렌트카 이용 관련 분쟁 해결 기준 확인.</li>
+                <li><strong>한국자동차산업협회:</strong> <a href="https://www.kama.or.kr" target="_blank">한국자동차산업협회 (KAMA)</a> - 국내 자동차 시장 동향 및 통계 자료 확인.</li>
+                <li><strong>나무위키:</strong> <a href="https://namu.wiki/w/장기렌터카" target="_blank">나무위키 장기렌터카 문서</a> - 신차렌트카의 역사, 장단점, 사회적 인식 등에 대한 일반 정보.</li>
+                <li><strong>기타 자동차 관련 정보 사이트:</strong> <a href="https://www.carisyou.com" target="_blank">카이즈유 데이터 연구소</a> - 차량별 <strong>가격</strong> 및 판매 <strong>순위</strong> 정보.</li>
+            </ul>
+            <p>이러한 정보를 바탕으로 <strong>신차렌트</strong>를 <strong>비교</strong>하고 선택하시면 더욱 합리적인 결정을 내릴 수 있습니다. 특히 <strong>신차렌트 업체</strong>의 <strong>전문</strong>성을 판단하는 데 도움이 됩니다.</p>
+        </section>
+
+        <!-- Section 6: FAQ Accordion -->
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <p><strong>신차렌트</strong> 고객님들이 가장 궁금해하는 질문들을 모아 답변해 드립니다. <strong>신차렌트 비용</strong>, <strong>가입</strong> 조건, <strong>혜택</strong> 등 궁금증을 해소해 보세요.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false">Q1. 신차렌트 계약 기간은 얼마나 되나요?</dt>
+                <dd>일반적으로 24개월, 36개월, 48개월, 60개월 중 선택 가능합니다. <strong>신차렌트 업체</strong>마다 최소 계약 기간이 다를 수 있으며, 기간이 길어질수록 월 <strong>평균 비용</strong>이 낮아지는 경향이 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q2. 신차렌트 시 보험료는 어떻게 처리되나요?</dt>
+                <dd><strong>신차렌트</strong> 상품의 <strong>보험</strong>은 렌트카 <strong>업체</strong> 명의로 가입됩니다. 따라서 고객님 개인의 <strong>보험</strong> 경력은 단절되지만, 사고 시 렌트료 할증 부담이 없다는 <strong>장점</strong>이 있습니다. <strong>신규 가입</strong> 고객의 경우 특히 <strong>할인</strong> 혜택이 클 수 있습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q3. 신차렌트카도 중간에 차량을 바꿀 수 있나요?</dt>
+                <dd>계약 기간 중에는 차량 교체가 어렵습니다. 다만, 계약 만기 시 차량을 반납하거나 인수할 수 있습니다. <strong>신차렌트</strong>를 이용하면서 새로운 차량으로 교체하고 싶다면 계약 만기 시점에 <strong>신규 가입</strong> <strong>이벤트</strong>를 활용하는 것이 좋습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q4. 만기 시 차량 인수가 가능한가요?</dt>
+                <dd>네, 계약 시점부터 인수형 <strong>신차렌트</strong> 상품을 선택하시면 만기 시점에 차량을 인수할 수 있습니다. 인수 시점의 <strong>예상 잔존가치</strong>를 미리 확인하고 <strong>견적</strong>을 받아보세요. <strong>장단점</strong>을 고려하여 결정해야 합니다.</dd>
+                
+                <dt tabindex="0" aria-expanded="false">Q5. 신차렌트 비용에 정비나 소모품 교체가 포함되나요?</dt>
+                <dd><strong>신차렌트 업체</strong>의 상품에 따라 정비 포함/불포함 옵션을 선택할 수 있습니다. 정비 포함 상품은 월 <strong>렌탈료</strong>가 조금 더 높지만, 정비 시기마다 <strong>전문 업체</strong>에서 모든 관리를 대행해 주어 편리합니다.</dd>
+            </dl>
+        </section>
+        
+        <!-- Section 7: Inquiry Form (for dwell time increase) -->
+        <section id="inquiry">
+            <h2>신차렌트카 1:1 맞춤 상담 및 견적 신청</h2>
+            <p><strong>2026년</strong> 최신 <strong>신차렌트카 가격</strong> 및 <strong>비용</strong>에 대해 궁금하신가요? 아래 양식을 작성해 주시면 전문 컨설턴트가 <strong>신차렌트 업체 순위</strong>와 <strong>할인 혜택</strong>을 고려한 맞춤형 <strong>견적</strong>을 제공해 드립니다. <strong>신규 가입</strong> <strong>혜택</strong>, <strong>사은품</strong>, <strong>현금지원</strong> 여부까지 상세하게 안내받아 보세요.</p>
+            <form action="#" method="post" class="inquiry-form" aria-label="신차렌트 견적 문의 양식">
+                <div class="form-group">
+                    <label for="carModel">희망 차종 (예: 아반떼, 쏘나타, 싼타페, EV6 등)</label>
+                    <input type="text" id="carModel" name="carModel" placeholder="희망하는 차량 모델을 입력해 주세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" placeholder="이름" required>
+                </div>
+                <div class="form-group">
+                    <label for="tel">연락처</label>
+                    <input type="tel" id="tel" name="tel" placeholder="연락 가능한 전화번호를 입력해 주세요 (010-1234-5678)" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일 (선택 사항)</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="contractTerm">희망 계약 기간 (개월)</label>
+                    <select id="contractTerm" name="contractTerm" required>
+                        <option value="">-- 기간 선택 --</option>
+                        <option value="36">36개월</option>
+                        <option value="48">48개월</option>
+                        <option value="60">60개월</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">문의 내용 (선택 옵션, 주행 거리, 보증금 등 자유 기재)</label>
+                    <textarea id="message" name="message" rows="4" placeholder="궁금한 점이나 추가 요청 사항을 남겨주세요"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="privacyConsent">
+                        <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+                        개인정보 수집 및 이용 동의 (필수)
+                    </label>
+                </div>
+                <button type="submit">견적 문의 신청하기</button>
+            </form>
+            <div style="text-align: center; margin-top: 2rem;">
+                <p>전화 문의: <a href="tel:010-1234-5678" class="cta-button-secondary">010-1234-5678</a></p>
+            </div>
+        </section>
+        
+        <!-- Hidden Keywords (Naver SEO optimization) -->
+        <div class="hidden-keywords">
+            <p>신차렌트카 가격 비교, 2026년 신차렌트 비용, 신차 장기렌트 견적, 저렴한곳 싼곳 추천, 업체 순위, 내돈내산 후기, 장단점, 차이점, 평균 금액, 혜택, 할인, 사은품, 현금지원, 신규 가입 이벤트, 네이버 구글 유튜브 검색</p>
+        </div>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ Accordion functionality
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+                
+                // Close all other open items
+                document.querySelectorAll('dl dt.active').forEach((activeDt) => {
+                    activeDt.classList.remove('active');
+                    activeDt.setAttribute('aria-expanded', 'false');
+                });
+
+                // Open current item if it wasn't active
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Keyboard accessibility for accordion
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+    </script>
+  
